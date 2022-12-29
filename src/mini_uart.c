@@ -79,18 +79,20 @@ enqueue_char:
 void uart_init(void) {
   unsigned int selector;
 
-  selector = get32(GPFSEL1);
+  // Fixe le pin GPIO 14 et 15 en mode alt5 
+  selector = get32(GPFSEL1); // Récupère le registre qui contrôle select function pour pin GPIOS ? à ?
   selector &= ~(7 << 12); // clean gpio14
   selector |= 2 << 12;    // set alt5 for gpio14
   selector &= ~(7 << 15); // clean gpio15
   selector |= 2 << 15;    // set alt5 for gpio15
   put32(GPFSEL1, selector);
 
-  put32(GPPUD, 0);
+  // Désactive pull up/down pour pins GPIO 14 et 15
+  put32(GPPUD, 0); // Fixe la valeur du registre à pull up/down
   delay(150);
-  put32(GPPUDCLK0, (1 << 14) | (1 << 15));
+  put32(GPPUDCLK0, (1 << 14) | (1 << 15)); // Affecte le pin GPIO 14 et 15 selon la valeur de GPPUD
   delay(150);
-  put32(GPPUDCLK0, 0);
+  put32(GPPUDCLK0, 0); // Nettoie le registre GGPPUDCLK0
 
   put32(AUX_ENABLES, 1); // Enable mini uart (this also enables access to it registers)
   put32(AUX_MU_CNTL_REG, 0); // Disable auto flow control and disable receiver

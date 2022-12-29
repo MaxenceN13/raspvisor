@@ -85,6 +85,7 @@ int create_task(loader_func_t loader, void *arg) {
   return pid;
 }
 
+// Pourquoi distinction entre in et out fifo ?
 void init_task_console(struct task_struct *tsk) {
   tsk->console.in_fifo = create_fifo();
   tsk->console.out_fifo = create_fifo();
