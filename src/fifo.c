@@ -21,7 +21,7 @@ int is_full_fifo(struct fifo *fifo) {
 }
 
 struct fifo *create_fifo() {
-  struct fifo *fifo = (struct fifo *)allocate_page();
+  struct fifo *fifo = (struct fifo *)allocate_page(); // alloue un bloc mémoire de 4 ko pour notre file
   fifo->head = 0;
   fifo->tail = 0;
   fifo->used = 0;

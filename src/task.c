@@ -86,6 +86,8 @@ int create_task(loader_func_t loader, void *arg) {
 }
 
 // Pourquoi distinction entre in et out fifo ?
+// Sans doute pour faire une file doublement chaîné de façon à faire une liste d'attende générique pour pouvoir stocker
+// n'importe quel type de caractère à affiché dans la console
 void init_task_console(struct task_struct *tsk) {
   tsk->console.in_fifo = create_fifo();
   tsk->console.out_fifo = create_fifo();
